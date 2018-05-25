@@ -16,28 +16,8 @@ class App extends Component {
 
   componentDidMount(){
     console.log('did mount')
-    setTimeout(() => {
-      this.setState({
-        movies: [
-          {
-            id: 1,
-            title: "내 아내의 모든것",
-            poster: "https://akns-images.eonline.com/eol_images/Entire_Site/2017524/rs_1024x565-170624152702-1024-toy-story-062417.jpg?fit=inside|900:auto&output-quality=90"
-          },
-          {
-            id: 2,
-            title: "About time",
-            poster: "https://pixar-planet.fr/wp-content/uploads/2016/10/affiche-toy-story-2-05.jpg"
-          },
-          {
-            id: 3,
-            title: "toystory",
-            poster: "https://vignette.wikia.nocookie.net/disney/images/8/80/Toy-story2-disneyscreencaps.com-3068.jpg/revision/latest?cb=20140924011418"
-          }
-        ]
-      }) 
-
-    }, 3000);
+    // API 불러오기!
+    console.log(fetch('https://yts.am/api/v2/list_movies.json?sort_by=download_count'))
   }
 
   _renderMovies = () => {
