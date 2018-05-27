@@ -11,28 +11,42 @@ class App extends Component {
 
 
   state = {
-   
+  
   }
 
   componentDidMount(){
-    console.log('did mount')
-    // API 불러오기!
-    console.log(fetch('https://yts.am/api/v2/list_movies.json?sort_by=download_count'))
+    console.log('didmount')
+    this._getMovies();
   }
 
   _renderMovies = () => {
-    console.log('_renderMovies')
     const movies = this.state.movies.map((movie) => {
-      return <Movie title={movie.title} poster={movie.poster} key={movie.id} />
+      console.log(movie)
+      return <Movie title={movie.title} poster={movie.large_cover_image} key={movie.id} />
     })
     return movies
+  }
+
+   _getMovies = async () => {
+    const movies = await this._callApi()
+    this.setState({
+      movies
+    })
+    console.log(movies)
+  }
+
+  _callApi = () => {
+    // API 불러오기!
+    return fetch('https://yts.gy/api/v2/list_movies.json?sort_by=download_count')
+    .then(apple => apple.json())
+    .then(json => json.data.movies)
+    .catch(err => console.log(err))
   }
 
   render() {
     console.log('render')
     return (
       <div className="App">
-        {/* 데이터가 있나 없나 확인하고, 있으면 그 값을 그리라는 함수 호출, 없으면 Loading 표시 */}
         {this.state.movies ? this._renderMovies() : 'Loading..'}
       </div>
     );
